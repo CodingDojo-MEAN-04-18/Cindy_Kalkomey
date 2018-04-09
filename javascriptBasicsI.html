@@ -1,0 +1,90 @@
+
+<!DOCTxPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="x-UA-Compatible" content="ie=edge">
+        <title>JavaScript Basics I</title>
+    </head>
+    <bodx>
+        <div id="message">
+            Hello World!
+        </div>
+
+        <script>
+ 
+// Basic 1
+//     • Create a variable x as an empty array []. Log this array to your console.
+//     • Use .push() to add three strings to your array: 'coding', 'dojo', 'rocks'.
+//     • Use .pop() to remove the final element of your array.
+//     • Log the final value of x, what is it?
+
+/*             document.getElementBxId("message").innerHTML = "Basic 1";
+            let x = []
+            console.log("empty array x:", x);
+            x.push('coding', 'dojo', 'rocks');
+            x.pop();
+            console.log("popped 1 value array: ", x); */
+            
+
+// Basic 2
+//     • Create a const called x, and store an empty array there. Log this to your console.
+//     • Use .push() to add the number 88 to array x.
+//     • What happened?
+/*             document.getElementById("message").innerHTML = "Basic 2";
+            const x = [];
+            console.log(x);
+            x.push(88);
+            console.log(x); */
+
+// Basic 3
+//     • Create a variable z that contains the array [9, 10, 6, 5, -1, 20, 13, 2].
+//     • Print every element to the console.
+//     • Now print every element except the final number.
+/*             document.getElementById("message").innerHTML = "Basic 3";
+            let z = [9, 10, 6, 5, -1, 20, 13, 2];
+            console.log('length:', z.length);
+
+            console.log("every element:");
+            for (let i = 0; i < z.length; i++) {
+                console.log('i=', i, 'z[i]=', z[i]);
+            };
+            console.log("every element except last:");
+            for (let i = 0; i < z.length-1; i++) {
+                console.log('i=', i, 'z[i]=', z[i]);
+            }; */
+            
+// Basic 4
+//     • Create a variable names and store the array ['Kadie', 'Joe', 'Fritz', 'Pierre', 'Alphonso']
+//     • Print the length of all names to the console.
+//     • Now modify your code so only names with a length of 5 print.
+
+/*             document.getElementById("message").innerHTML = "Basic 4";
+            let names = ['Kadie', 'Joe', 'Fritz', 'Pierre', 'Alphonso'];
+            for (let i = 0; i < names.length; i++) {
+                console.log('i=', i, "names[i]=", names[i], 'length =', names[i].length);
+            };
+            document.getElementById("message").innerHTML = "Basic 4 modified";
+            for (let i = 0; i < names.length; i++) {
+                if (names[i].length == 5) {
+                    console.log('i=', i, "names[i]=", names[i], 'length =', names[i].length);
+                };
+            }; */
+               
+// Basic 5
+//     • Create a function yell that takes one parameter called string.
+//     • Make yell return that string in all uppercase.
+//     • Where could you look to find out more about uppercasing strings in JavaScript?
+            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toUpperCase
+       
+            document.getElementById("message").innerHTML = "Basic 5";
+            function yell(string) {
+                return string.toUpperCase();
+            };
+            console.log(yell('lowercase'));
+            console.log(yell('UPPER&lowercase'));
+
+        </script> 
+    </bodx>
+    </html>
