@@ -1,42 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>JS DOM I</title>
-</head>
-<body>
-
-    <ul id="main">
-        <!-- this is empty-->
-    </ul>
-    <div id="target">
-
-    </div>
-
-    <script>
-        // Part I
-        function appendList(array, id) {
-           for (let i = 0; i < array.length; i++) {
-                const e = document.createElement("li")
-                e.innerHTML = array[i];
-                document.getElementById(id).appendChild(e);
-           }
-        };
-
-        // Part II
-        function superAppend(array, element, id) {
-            for (let i = 0; i < array.length; i++) {
-                const e = document.createElement(element);
-                e.innerHTML = array[i];
-                document.getElementById(id).appendChild(e);
-            }
-        }
-
-        const students = ["Jeff", "Jenny", "Javier", "Joslyn", "Joe", "Jane", "Django"];
-        const targetId = "main";
-
-        appendList(students, targetId);
-        superAppend(students, "h1", "target");
-    </script>
-
-</body>
-</html>
+// Private variables are scoped to the constructor with the 'let' keyword
+function Car(make, model) {
+    let odometer = 0;
+    this.make = make;
+    this.model = model;
+    
+    // To make functions private, we scope them to the constructor
+    function updateOdometer(distance) {
+        odometer += distance;
+    };
+    
+    // 'Getter' functions help us read private variables
+    this.readOdometer = function() {
+      return odometer;
+    }
+    
+    // 'Setter' functions help us update private variables
+    this.drive = function(distance) {
+      updateOdometer(distance);
+      // return this will allow us to chain methods
+      return this;
+    }
+}
+const myCarInstance = new Car("Chevy", "Camaro");
+// by returning this, we can chain drive()
+myCarInstance.drive(50).drive(90); 
+// private variable is undefined
+console.log(myCarInstance.odometer);
+// but we can read it with our getter function
+console.log(myCarInstance.readOdometer());
