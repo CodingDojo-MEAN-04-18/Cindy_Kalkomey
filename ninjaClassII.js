@@ -61,8 +61,9 @@ Ninja.prototype.punch = function(punchee) {
 // Now add a method to your Ninja class called .kick(). Kick will subtract 15 Health for each point of Strength the calling Ninja has, and like .punch() will take another Ninja instance.
 Ninja.prototype.kick = function(kickee) {
     if (kickee instanceof Ninja) {
-        kickee.health -= 15;
-        console.log( kickee.name + " was kicked by " + this.name + " and lost 15 Health!");
+        let cost = this.strength*15;
+        kickee.health -= cost;
+        console.log( kickee.name + " was kicked by " + this.name + " and lost" + cost + " Health!");
     } else {
         console.log("Not a Ninja")
     }   
