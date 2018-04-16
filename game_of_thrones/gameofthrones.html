@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-   
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Bootstrap CSS -->
     <!-- Latest compiled and minified CSS -->
@@ -15,14 +13,59 @@
     <title>Game of Thrones</title>
 
 </head>
-
 <body>
+
+<script>
+    ( function(window_ref) {
+
+        // attach function $House to the window object (which is passed to the immediate function at end of function)
+        window_ref.$house = function $House(id) {
+
+            console.log(this);
+            console.log(id);
+            this.element = document.getElementById(id);
+            console.log(this.element); // why is this null?
+
+            this.click = function(clickCallback) {
+                this.element.addEventListener("click", clickCallback);
+            };
+
+            function clickCallback(id) {
+                // call the GoT API
+                console.log("calling API for house id=", id);
+                $.get('https://anapioficeandfire.com/api/houses/'+id, displayInfo);
+            }
+
+            function displayInfo(data){
+                console.log('data object returned from API: \n', data)
+                if (data.name){
+                    $('name').innerHTML("Name: " + data.name);
+                }
+                if (data.words){
+                    $('words').innerHTML("Words: " + data.words);
+                }
+                if (data.words){
+                    $('titles').innerHTML("Titles: " + data.titles);
+                }
+            }
+
+            return this;
+        };
+
+    }(window));
+
+    $house("362").click;
+    $house("378").click;
+    $house("229").click;
+    $house("15").click;
+
+</script> 
+
 <div class="container">
 
     <div class="row">
         <div id="362" class="col-md-3 p5">
-            <img class="img-fluid" 
-            src="images/stark.jpg" />
+            <img class="img-fluid" src="images/stark.jpg" />
         </div>
         <div id="378" class="col-md-3 p5">
             <img class="img-fluid" src="images/targaryen.jpg" />
@@ -33,8 +76,7 @@
         <div id="15" class="col-md-3 p5">
             <img class="img-fluid" src="images/baratheon.png" />
         </div>
-
-    </div>
+    </div> <!-- end of row of images -->
 
     <div class="card w-75 mx-auto mt-5">
         <div class="card-body">
@@ -45,7 +87,7 @@
                 <li id="titles" class="list-group-item">Titles: </li>
             </ul>
        </div>
-    </div>
+    </div> <!-- end of info card -->
 
 </div> <!-- end container div -->
 

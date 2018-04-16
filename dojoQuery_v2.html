@@ -31,20 +31,18 @@ Your code should be wrapped in an immediate function that returns the $Dojo func
     <button id="idForHoverButton">Test Hovering</button>
 
     <script>
+
         //  Make sure you wrap your code in an immediate function 
         ( function(window_ref) {
 
             // $Dojo should be a function that returns an object (an HTML element object)
-            // attach function $Dojo to the window object (which is passed in to the immediate function on line 60)
-            window_ref.$dojo = function $Dojo(id) {
+            function $Dojo(id) {
 
-                console.log(this);
                 this.element = document.getElementById(id);
 
                 // The object returned by the $Dojo function should have 2 added methods “click” and “hover”
                 // The click method that you attach to the object returned by the $Dojo function should take in 1 parameter which is a callback that gets run on that event.
                 this.click = function(clickCallback) {
-                    //DOMobject.addEventListener takes in 2 parameters 1) the event 2) the callback function
                     this.element.addEventListener("click", clickCallback);
                 };
 
@@ -53,19 +51,23 @@ Your code should be wrapped in an immediate function that returns the $Dojo func
                     this.element.addEventListener("mouseover", hoverInCallback); 
                     this.element.addEventListener("mouseout", hoverOutCallback);  
                 };
-    
-            return this;
-            };
- 
+
+                //DOMobject.addEventListener takes in 2 parameters 1) the event 2) the callback function (Note that this method must be run on an html element)
+        
+                return this;
+            }
+            window_ref.$Dojo=$Dojo;
         }(window));
 
-        $dojo("idForClickButton").click(
+
+        $Dojo("idForClickButton").click(
                 function() { console.log("The button was clicked!") });
 
-        $dojo("idForHoverButton").hover(
+        $Dojo("idForHoverButton").hover(
                 function() { console.log("The button was hovered on!") },
                 function() { console.log("The button is no longer hovered on!") }
                 );
+
     </script> 
 </body>
 </html>
