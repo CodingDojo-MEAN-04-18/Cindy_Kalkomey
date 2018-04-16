@@ -1,0 +1,72 @@
+<!-- DojoQuery: Our assignment is to create our own DojoQuery library that exposes $Dojo to the global namespace. Let’s go over the functionality that $Dojo should have:
+    * The ability to click on an HTML element with a specific id.
+    * The ability to hover on an HTML element with a specific id.
+Make sure you wrap your code in an immediate function (The immediate function pattern is a syntax that enables you to execute a function as soon as it is defined.)
+    $Dojo("someIdForSomeButton").click(function() { console.log("The button was clicked!") });
+    $Dojo("someOtherIdForSomeOtherButton").hover(function() { console.log("The button was hovered on!") });
+Here are some hints that should help you get started:
+    1 $Dojo should be a function that returns an object (an HTML element object)
+    2 The object returned by the $Dojo function should have 2 added methods “click” and “hover”
+    3 The click method that you attach to the object returned by the $Dojo function should take in 1 parameter which is a callback that gets run on that event.
+    4 The hover method that you attach to the object returned by the $Dojo function should take in 2 parameters (what happens when you hover in and what happens when you hover out)
+Your code should be wrapped in an immediate function that returns the $Dojo function. Here are some relevant built-in JS methods that should help:
+    document.getElementById // (makes a DOMobject accessible to JavaScript) takes in one parameter which is the id for a particular element
+    DOMobject.addEventListener //takes in 2 parameters 1) the event 2) the callback function (Note that this method must be run on an html element)
+    //Also note that you will need to pay attention to the following built in events from the DOM
+        DOMobject.click
+        DOMobject.mouseover
+        DOMobject.mouseout -->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <title>Dojo Query Exercise </title>
+</head>
+<body>
+
+    <button id="idForClickButton">Test Clicking</button>
+    <button id="idForHoverButton">Test Hovering</button>
+
+    <script>
+        // $Dojo should be a function that returns an object (an HTML element object)
+        function $Dojo(id) {
+
+            this.element = document.getElementById(id);
+
+            // The object returned by the $Dojo function should have 2 added methods “click” and “hover”
+            // The click method that you attach to the object returned by the $Dojo function should take in 1 parameter which is a callback that gets run on that event.
+            this.click = function(clickCallback) {
+            
+            };
+
+            // The hover method that you attach to the object returned by the $Dojo function should take in 2 parameters (what happens when you hover in and what happens when you hover out)
+            this.hover = function(hoverInCallback, hoverOutCallback) {
+     
+            };
+
+            //DOMobject.addEventListener takes in 2 parameters 1) the event 2) the callback function (Note that this method must be run on an html element)
+            this.element.addEventListener("click", function() {
+                click(p1);
+                
+
+            this.element.addEventListener("mouseover", hoverIn); 
+            this.element.addEventListener("mouseout", hoverOut); 
+    
+            return this;
+        }
+
+        $Dojo("idForClickButton").click(
+            function() { console.log("The button was clicked!") });
+
+        $Dojo("idForHoverButton").hover(
+            function() { console.log("The button was hovered on!") },
+            function() { console.log("The button is no longer hovered on!") }
+            );
+        
+
+    </script> 
+</body>
+</html>
