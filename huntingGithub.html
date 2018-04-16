@@ -1,0 +1,61 @@
+<!-- Hunting Github: When we send a request via AJAX, we need to also set up the list of instructions (callback) that will run as soon as the response is received. In this case, we are using an event handling callback that gets triggered on the “response” event. Let’s see this in action:
+We will be using the GitHub API to hunt down online information about yourself. If you navigate to https://api.github.com/users/(your user name) you will see a bunch of JSON data (Remember JSON is just JavaScript Object Notation) that looks like this:
+{
+  "login": "MikeHannon",
+  "id": 7180431,
+  "avatar_url": "https://avatars.githubusercontent.com/u/7180431?v=3",
+  "gravatar_id": "",
+//...
+  "followers": 44,
+  "following": 8,
+  "created_at": "2014-04-05T00:21:45Z",
+  "updated_at": "2015-04-14T23:23:54Z"
+}
+This is the URL we will be using in our API call: https://api.github.com/users/(your user name). Our goal is to display our name on the page using the GitHub API.
+Let’s get started with our request. As you may remember from the AJAX/API chapter, we send an API request using the $.get method from jQuery.
+This is just the JS code that will go in your script.js file and don’t forget to get jQuery first!
+Below, we are asking jQuery to send a GET Ajax request to the https://api.github.com/users/(your user name) URL and we
+are passing it a “displayName” function to run as soon as the Github API sends us a response.
+$.get("https://api.github.com/users/(... user name)", displayName)
+Notice that displayName is a function that takes in 1 parameter (this is the data that comes back from the API)
+function displayName(data) {
+  console.log(data);
+}
+Your objective is to create a button that when clicked will send an API request to the GitHub API (see above) and will display your name in a tag below the button.
+Optional Use promises (either the q library or ES6) instead of callbacks. -->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hunting Github</title>
+</head>
+<body>
+
+    <button id="gitButton">Click to get Git info</button>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script>
+
+    // Link our variable "button" to a DOM element
+    const button = document.getElementById("gitButton")
+
+    // add a DOM eventListener to that variable.
+    button.addEventListener("click", callAPI);
+
+    // define the What-To-Do-On-Click function (callAPI)
+    function callAPI() {
+
+        $.get("https://api.github.com/users/ckalk", displayName)
+
+        // Notice that displayName is a function that takes in the data that comes back from the API
+        function displayName(data) {
+            console.log(data);
+            const htmlStr = "<p>" + data.login + "</p>";
+            $( htmlStr ).insertAfter( button );
+        }
+    }
+    </script> 
+</body>
+</html>
