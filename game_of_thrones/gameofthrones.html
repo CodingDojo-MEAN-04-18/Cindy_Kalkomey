@@ -15,51 +15,6 @@
 </head>
 <body>
 
-<script>
-    ( function(window_ref) {
-
-        // attach function $House to the window object (which is passed to the immediate function at end of function)
-        window_ref.$house = function $House(id) {
-
-            console.log(this);
-            console.log(id);
-            this.element = document.getElementById(id);
-            console.log(this.element); // why is this null?
-
-            this.click = function(clickCallback) {
-                this.element.addEventListener("click", clickCallback);
-            };
-
-            function clickCallback(id) {
-                // call the GoT API
-                console.log("calling API for house id=", id);
-                $.get('https://anapioficeandfire.com/api/houses/'+id, displayInfo);
-            }
-
-            function displayInfo(data){
-                console.log('data object returned from API: \n', data)
-                if (data.name){
-                    $('name').innerHTML("Name: " + data.name);
-                }
-                if (data.words){
-                    $('words').innerHTML("Words: " + data.words);
-                }
-                if (data.words){
-                    $('titles').innerHTML("Titles: " + data.titles);
-                }
-            }
-
-            return this;
-        };
-
-    }(window));
-
-    $house("362").click;
-    $house("378").click;
-    $house("229").click;
-    $house("15").click;
-
-</script> 
 
 <div class="container">
 
@@ -93,7 +48,62 @@
 
 <!-- Optional JavaScript for bootstrap would go here-->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+<script>
+        ( function(window_ref) {
+            // attach function $House to the window object (which is passed to the immediate function at end of function)
+            window_ref.$house = function $House(id) {
+    
+                console.log('this within $House: ', this);
+                console.log('this is the id', id);
+                this.element = document.getElementById(id);
+                console.log('this is the element returned from getelement', this.element);
+    
+                this.click = function(clickCallback) {
+                    this.element.addEventListener("click", clickCallback);
+                };
+    
+                return this;
+            };
+    
+        }(window));
+
+        // id is not being passed, just the event
+        function clickCallback(id) {
+            // call the GoT API
+            console.log('this at line 76', this.id);
+            console.log("calling API for house id=", id);
+            console.log(jQuery);
+            $.get('https://anapioficeandfire.com/api/houses/'+this.id, displayInfo);
+        }
+    
+        function displayInfo(data){
+            console.log('data object returned from API: \n', data)
+
+            if ( data.name && document.getElementById('name') ){
+                // console.log('$(#name)' , $('#name')[0] );
+                document.getElementById('name').innerHTML = "Name: " + data.name;
+            }
+
+            if ( data.words && document.getElementById('words') ){
+                document.getElementById('words').innerHTML = "Words: " + data.words;
+            }
+
+            if ( data.titles && document.getElementById('titles') ){
+                document.getElementById('titles').innerHTML = "Titles: " + data.titles;
+            }
+        }
+
+        $house("362").click(clickCallback);
+        $house("378").click(clickCallback);
+        $house("229").click(clickCallback);
+        $house("15").click(clickCallback);
+    
+    </script> 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
