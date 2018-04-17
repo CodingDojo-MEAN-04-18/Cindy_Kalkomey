@@ -27,7 +27,7 @@ function orderSupplies(item, callback) {
 //     console.log(`Received ${item.product}, time to ${item.directions() }`);
 //   }
 
- function brushFirst(item) {
+ function brushLast(item) {
     // console.log('calling brushFirst with item= ', item);
     if(item.product == 'Horsehair brush'){
         setTimeout(
@@ -44,5 +44,5 @@ function orderSupplies(item, callback) {
 //   orderSupplies('paint', receivedItem);
 //   orderSupplies('brush', receivedItem);
 
-  orderSupplies('paint', brushFirst);
-  orderSupplies('brush', brushFirst);
+  orderSupplies('paint', brushLast);
+  orderSupplies('brush', brushLast);
