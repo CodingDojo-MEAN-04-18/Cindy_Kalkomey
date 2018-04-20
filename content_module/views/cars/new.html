@@ -1,0 +1,97 @@
+<!-- // * Have localhost:7077/cars go to a simple html page that shows some cool pictures of different cars, stored locally.
+// * Have localhost:7077/cats show a simple html page with some cool pictures of cats, stored locally.
+// * Have localhost:7077/cars/new   show a simple form where the user can add a new car information. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Cars Form</title>
+    </head>
+
+    <body>
+    <div class="container">
+    
+        <!-- everything that goes in container  here -->
+    
+        <h1 class="mb-5">Add Another Car</h1>
+
+
+        <form action="#">
+
+        <div class="form-group row">
+            <label for="name" class="col-sm-3 col-form-label">
+                Car Name:
+            </label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="name" placeholder="Enter name of car">
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label for="alias" class="col-sm-3 col-form-label">
+                Car Make/Model:
+            </label>
+            <div class="col-sm-9">
+                <select name="make_model" placeholder="Select make/model">
+                    <option value="empty">**Choose Model**</Enter></option> 
+                    <option value="Ford/Mustang">Ford/Mustang</option> 
+                    <option value="VW/Beetle">VW/Beetle</option>
+                    <option value="Toyota/Corolla">Toyota/Corolla</option>
+                    <option value="Nissan/Rogue">Nissan/Rogue</option>
+                    <option value="Lexus/RX350">Lexus/RX350</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="car_color" class="col-sm-3 col-form-label">
+                Car Color:
+            </label>
+            <div class="col-sm-9 ">
+                <select name="car_color">
+                    <option value="empty">**Choose Color**</Enter></option> 
+                    <option value="Red">Red</option>
+                    <option value="Black">Black</option>
+                    <option value="Silver">Silver</option>
+                    <option value="Grey">Grey</option>
+                    <option value="White">White</option>
+                    <option value="Ruby">Ruby</option>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Submit
+        </button>
+
+    </form>
+
+
+<!-- rule and footer  for every page -->
+    <hr>
+    <footer>
+        <p>&copy; Kalkulations 2018</p>
+    </footer>
+
+</div> <!-- end container div -->
+
+<!-- Optional Silver for bootstrap would go here-->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>
