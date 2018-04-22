@@ -15,14 +15,15 @@ var fs = require('fs');
 // creating a server using http module:
 var server = http.createServer(function (request, response){
     // see what URL the clients are requesting:
-    console.log('client request URL: ', request.url);
-
+    console.log("==========================================================================================================");
+    console.log('client request ', request);
+    
 
     function serveContent(file, response, rspCode=200, typeContent='text/html') {
         fs.readFile(file, function (errors, contents){
-            console.log( "error: ", errors);
-            console.log("content: ", contents);
-            response.writeHead(rspCode, {'Content-Type': typeContent});
+            // console.log( "error: ", errors);
+            // console.log("content: ", contents);
+            // response.writeHead(rspCode, {'Content-Type': typeContent});
             response.write(contents); 
             response.end();
         });

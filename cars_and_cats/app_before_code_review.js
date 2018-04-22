@@ -18,14 +18,6 @@ var server = http.createServer(function (request, response){
     console.log('client request URL: ', request.url);
 
 
-
-
-
-
-
-
-    
-  
     // localhost:7077/cars go to a simple HTML page that shows some cool pictures of different cars, stored locally.
     if(request.url === '/cars') {
         fs.readFile('views/cars.html', 'utf8', function (errors, contents){
