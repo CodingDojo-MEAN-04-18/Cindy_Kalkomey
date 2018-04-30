@@ -1,0 +1,146 @@
+<!-- For this  app:
+1. Server render views/index.ejs with survey form
+2. User submits form
+3. Form information EMITTED to server with event name 'posting_form'
+4. Server listens for an event 'posting_form' and when triggered, organizes emitted information into single message and sends this single message with the event called 'updated_message'. It also EMITs an event called 'random_number' with random number between 1-1000.
+5. Client listens for event called 'random_number' and when this event gets triggered, shows the number in the HTML.
+6. Client also listens for an event called 'updated_message' and when triggered, displays the message in the HTML -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   
+    <!-- Bootstrap CSS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+
+    <title>Survey Form Revisited</title>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type ="text/javascript">
+         $(document). ready(function (){
+   
+            var socket  = io.connect();
+
+            $( 'form' ).submit(function (e){
+                e.preventDefault();
+
+                //console.log(JSON.parse(this));
+                // console.log($(this).serializeArray());
+
+                const data = {
+                    name: $('#name').val(),
+                    location: $('#location').val(),
+                    favlanguage: $('#favlanguage').val(),
+                    comment: $('#comment').val()
+                };
+                
+                socket.emit( "posting_form", data);
+            });
+
+            socket.on( 'updated_message', function (returned){
+
+                console.log( 'The server sent message: ' + returned.message);
+
+                const markup1 = `
+                    <div id="server_msg">
+                    <p>  ${ returned.message } </p>
+                    </div>
+                    `;
+
+                //insert after h1 tag the markup
+                $( 'h1').after (markup1);
+            });
+
+            socket.on( 'random_number', function (returned){
+                console.log( 'The server sent random number: ' + returned.randnum);
+
+                const markup2 = $('#server_msg').html() + `
+                    <p>
+                    Your lucky number returned from the server is: 
+                    ${ returned.randnum }
+                    </p>
+                    `;
+
+                //replace html in div #server_msg
+                $('#server_msg').html(markup2);
+            });
+            
+        })
+
+    </script>
+</head>
+
+<body>
+<div class="container">
+
+    <!-- everything that goes in container  here -->
+    <h1 class="mb-2">Dojo Survey Revisited</h1>
+
+ 
+
+    <form action="/result" method="POST">
+
+        <div class="form-group">
+            <label for="name" class="col-sm-2 col-form-label">Name:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="name" id="name" placeholder="Enter your name">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="location" class="col-sm-2 col-form-label">Location:</label>
+            <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="location" id="location">
+                <option value="empty">**Choose Location**</Enter></option> 
+                <option value="Chicago">Chicago</option> 
+                <option value="Dallas">Dallas</option>
+                <option value="Los Angeles">Los Angeles</option>
+                <option value="Seattle">Seattle</option>
+                <option value="Silicon Valley">Silicon Valley</option>
+                <option value="Tulsa">Tulsa</option>
+                <option value="Washington DC">DC</option>
+                <option value="Online">Online</option>
+              </select>
+        </div>
+
+        <div class="form-group">
+            <label for="favlanguage" class="col-sm-2 col-form-label">Favorite Language:</label>
+            <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="favlanguage" id="favlanguage">
+                <option value="empty">**Choose Language**</Enter></option> 
+                <option value="HTML">HTML</option>
+                <option value="CSS">CSS</option>
+                <option value="JavaScript">JavaScript</option>
+                <option value="Python">Python</option>
+                <option value="PHP">PHP</option>
+                <option value="Ruby">Ruby</option>
+                <option value="C#">C#</option>
+                <option value="Java">Java</option>
+              </select>
+        </div>
+
+        <div class="form-group">
+            <label for="comment">Comment (optional):</label>
+            <textarea class="form-control" name="comment" id="comment" rows="3"></textarea>
+        </div>
+
+        <input id="button" class="btn btn-primary btn-lg" type="submit" value="Add Dojo">
+
+    </form>
+
+<!-- rule and footer for every page -->
+    <hr>
+    <footer>
+        <p>&copy; Kalkulations 2018</p>
+    </footer>
+
+</div> <!-- end container div -->
+
+</body>
+</html>
