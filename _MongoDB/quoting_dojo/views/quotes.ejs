@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   
+    <!-- Bootstrap CSS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+      <title>Quoting Dojo</title>
+
+</head>
+
+<body>
+<div class="container">
+
+    <!-- everything that goes in container  here -->
+    <h1 class="mb-2">Here are the awesome quotes!</h1>
+   
+    <% for (var x in quotes) { 
+        var d = new Date( quotes[x].createdAt );
+        var time = d.toTimeString();
+        var dt = d.toDateString();
+        %>
+
+        <blockquote class="blockquote">
+            <p class="mb-0">&quot; <%= quotes[x].quote %> &quot; </p>
+            <footer class="blockquote-footer"><%= quotes[x].name %> at <%= time %> <%= dt %></footer>
+        </blockquote>
+        
+    <% } %>
+
+<!-- rule and footer  for every page -->
+    <hr>
+    <footer>
+        <p>&copy; Kalkulations 2018</p>
+    </footer>
+
+</div> <!-- end container div -->
+
+</body>
+</html>
