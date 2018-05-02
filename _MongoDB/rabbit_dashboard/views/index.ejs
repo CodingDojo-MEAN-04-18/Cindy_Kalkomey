@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   
+    <!-- Bootstrap CSS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+      <title>Rabbit Hutch</title>
+
+</head>
+
+<body>
+<div class="container">
+
+    <!-- everything that goes in container  here -->
+    <h1 class="mb-2">Here are all of the rabbits!</h1>
+   
+    <% for (var x in rabbits) { %>
+        <h5>Name: <%= rabbits[x].name %></h5>
+        <h5>Color: <%= rabbits[x].color %></h5>
+        <h5>Age: <%= rabbits[x].age %></h5>
+        <h5>ID: <%= rabbits[x].rabbitID %></h5>
+        <form action="/rabbits/destroy/<%= rabbits[x].rabbitID %>"  method="POST">
+            <button type="submit" class="btn btn-primary mr-3">Remove this rabbit!</button>
+        </form>
+        <hr>
+    <% } %>
+
+<!-- rule and footer  for every page -->
+    <hr>
+    <footer>
+        <p>&copy; Kalkulations 2018</p>
+    </footer>
+
+</div> <!-- end container div -->
+
+</body>
+</html>

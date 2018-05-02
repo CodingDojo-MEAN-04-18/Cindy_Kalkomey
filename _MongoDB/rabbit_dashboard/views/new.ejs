@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   
+    <!-- Bootstrap CSS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+      <title>Add a Rabbit</title>
+
+</head>
+
+<body>
+<div class="container">
+
+    <!-- everything that goes in container  here -->
+
+    <h1 class="mb-2">Add a New Rabbit</h1>
+
+    <!-- if errors returned, display them -->
+    <% if(typeof(errors) != 'undefined' ) { %>
+        <% for (var x in errors) { %>
+            <p class="alert alert-danger"><%= errors[x].message %></p>
+        <% } %>
+    <% } %>
+
+    <!-- form to collect rabbit data -->
+    <form action="/rabbits" method="POST">
+
+        <div class="form-group">
+            <label for="name">Rabbit's Name:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="name" placeholder="Enter new rabbit's name">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="color">Rabbit's Color:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="color" placeholder="Enter color of new rabbit">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="age">Rabbit's Age:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="age" placeholder="Enter age of new rabbit">
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <button type="submit" class="btn btn-primary mr-3">
+                Add new rabbit!
+            </button>
+            <a class="btn btn-primary" href="/" role="button">Skip to see all rabbits!</a>
+        </div>
+    </form>
+
+<!-- rule and footer  for every page -->
+    <hr>
+    <footer>
+        <p>&copy; Kalkulations 2018</p>
+    </footer>
+
+</div> <!-- end container div -->
+
+</body>
+</html>
