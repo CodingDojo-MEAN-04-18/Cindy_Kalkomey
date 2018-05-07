@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   
+    <!-- Bootstrap CSS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+      <title>Users</title>
+
+</head>
+
+<body>
+    <div class="container">
+
+    <!-- everything that goes in container  here -->
+
+        <!-- nav bar here -->
+
+        <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+            <a class="nav-brand">
+            <% if( logged_in ) { %>
+                Logged in:  <%= logged_in %>
+            <% } %>
+        </div> 
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="/users">Dashboard</a>
+                </li>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+        </nav>
+
+    <h1 class="mb-5">Welcome <%= logged_in %>!</h1>
+
+    <% 
+    for (const user of users) { %>
+        <h4>Name: <%= user.first_name %> <%= user.last_name %></h4>
+        <h4>Email: <%= user.email %></h4>
+        <hr>
+    <% } 
+    %>
+
+    </div>
+
+<!-- rule and footer  for every page -->
+    <hr>
+    <footer>
+        <p>&copy; Kalkulations 2018</p>
+    </footer>
+
+</div> <!-- end container div -->
+
+</body>
+</html>
