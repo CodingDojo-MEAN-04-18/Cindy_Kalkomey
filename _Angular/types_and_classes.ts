@@ -1,7 +1,7 @@
 var myNum: number = 5;
 var myString: string = "Hello Universe";
 var myArr: number[] = [1,2,3,4];
-var myObj: any = { name:'Bill'};
+var myObj: { [key: string]: (string | number) } = { name: 'Bill' };
 myObj = { x: 5, y: 10 };
 
 var anythingVariable: any = "Hey";
@@ -30,12 +30,12 @@ class MyNode {
     constructor(valueIn: number){
         this.val = valueIn;
     }
-    doSomething() {
+    doSomething(): void {
         this._priv = 10;
     }
 }
 
-let myNodeInstance = new MyNode(1);
+const myNodeInstance = new MyNode(1);
 
 console.log(myNodeInstance.val);
 
