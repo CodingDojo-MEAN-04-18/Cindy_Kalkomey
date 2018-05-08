@@ -1,0 +1,48 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="container">
+
+    <div class="jumbotron">
+        <h1 class="display-4">Dojo Mail</h1>
+    </div>
+
+  
+    <div class="panel panel-primary">
+      <div class="panel-heading">The place to read all of your email</div>
+      <div class="panel-body">
+        <h3>{{title}}</h3>
+        <!-- <h5>{{ items | json }}</h5> -->
+
+        <table class="ml-3 table table-striped">
+
+            <thead class="thead">
+            <tr>                        
+                <th scope="col">Email</th>
+                <th scope="col">Importance</th>
+                <th scope="col">Subject</th>
+                <th scope="col">Content</th>
+            </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor='let item of items'>
+                    <td>{{ item.email | lowercase}}</td>  
+                    <td *ngIf= 'item.importance' > High</td>   
+                    <td *ngIf= '!item.importance' >Low</td>      
+                    <td>{{ item.subject }}</td>
+                    <td>{{ item.content }}</td>
+                </tr>
+            </tbody>
+
+        </table>
+
+      </div>
+    </div>
+
+    <hr class='mt-5'>
+        
+    <footer>
+        <p>&copy; Kalkulations 2018</p>
+    </footer>
+
+  </div>
+
