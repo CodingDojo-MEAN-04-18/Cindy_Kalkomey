@@ -1,0 +1,26 @@
+
+<div class="container">
+
+  <div class="jumbotron">
+      <h1 class="display-4">{{ title }}</h1>
+  </div>
+
+
+  <div class="row" >
+      <button class="btn btn-outline-primary mx-auto" [ngClass]="{ 'on': switchPST }" (click)="onButtonClick('PST')">PST</button>
+      <button class="btn btn-outline-primary mx-auto" [ngClass]="{ 'on': switchMST }" (click)="onButtonClick('MST')">MST</button>
+      <button class="btn btn-outline-primary mx-auto" [ngClass]="{ 'on': switchCST }" (click)="onButtonClick('CST')">CST</button>
+      <button class="btn btn-outline-primary mx-auto" [ngClass]="{ 'on': switchEST }" (click)="onButtonClick('EST')">EST</button>
+      <button class="btn btn-outline-primary mx-auto" (click)="onButtonClear()">Clear</button>
+  </div>
+
+  <h2 *ngIf='newdate' class = "mt-5 text-center">{{ newdate | date:'longDate' }}, {{ newdate | date:'mediumTime'}}  </h2>
+
+
+  <hr class='mt-5'>
+      
+  <footer>
+      <p>&copy; Kalkulations 2018</p>
+  </footer>
+  
+</div>
