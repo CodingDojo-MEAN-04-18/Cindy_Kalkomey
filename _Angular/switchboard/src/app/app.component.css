@@ -1,0 +1,22 @@
+.square { 
+    height: 50px;
+    width: 50px;
+    margin: 20px;
+    background-color: red; 
+}
+
+.on { 
+    background-color: green; 
+}
+
+.off { 
+    background-color: red; 
+}
+
+.bar {
+    background-color: darkgray;
+}
+
+.bold {
+    font-weight: bolder;
+}
