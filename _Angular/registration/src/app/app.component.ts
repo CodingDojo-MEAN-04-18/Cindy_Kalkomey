@@ -9,20 +9,20 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent { 
-  title:string = 'Registration';
-  user = new User();
+export class AppComponent {
+  title: string = 'Registration';
+  user: User = new User();
   idnum: number = 0;
-  users = [];
-  reg_name: string = "";
-  reg_email: string =  "";
-  reg_addr: string = "";
+  users: User[] = [];
+  reg_name: string = '';
+  reg_email: string =  '';
+  reg_addr: string = '';
 
-  onSubmit(event, formData){
-
-    console.log("onSubmit form:", formData);
-    console.log("onSubmit user:", this.user);
-    console.log("form valid? ", formData.valid);
+  onSubmit(event: Event, formData: NgForm) {
+    event.preventDefault();
+    console.log('onSubmit form:', formData);
+    console.log('onSubmit user:', this.user);
+    // console.log("form valid? ", formData.valid);
     if (formData.valid) {
       this.reg_name = this.user.first_name;
       this.reg_email = this.user.email;
@@ -30,13 +30,14 @@ export class AppComponent {
       this.user.id = this.idnum;
       this.idnum++;
       this.users.push(this.user);
+      console.log('users array:', this.users);
       this.user = new User();
       formData.reset();
 
     } else {
-      this.reg_name = "";
-      this.reg_email = "";
-      this.reg_addr = "";
+      this.reg_name = '';
+      this.reg_email = '';
+      this.reg_addr = '';
     }
   }
 }

@@ -9,8 +9,8 @@
           Thank you for registering with us {{ reg_name}}. We have just sent a confirmation email at {{ reg_email }}, and we will send all mail to {{reg_addr}}. <br> Have a wonderful day!
       </div>
 
+      <!-- {{ formData.value }} -->
 
-  
       <form (submit)="formData.valid && onSubmit($event, formData)" #formData='ngForm'>
 
         <div class="form-group row">
@@ -18,14 +18,14 @@
                 *First Name:
             </label>
             <div class="col-sm-4 ">
-                <input 
-                  name="first_name" 
+                <input
+                  name="first_name"
                   placeholder="Enter your first name"
-                  type="text" 
-                  class="form-control" 
-                  minlength="4" 
+                  type="text"
+                  class="form-control"
+                  minlength="4"
                   maxlength="24"
-                  required 
+                  required
                   #first_name='ngModel'
                   [(ngModel)]="user.first_name"
                 />
@@ -41,14 +41,14 @@
                 *Last Name:
             </label>
               <div class="col-sm-4 ">
-                <input 
-                  name="last_name" 
+                <input
+                  name="last_name"
                   placeholder="Enter your last name"
-                  type="text" 
-                  class="form-control" 
-                  minlength="4" 
+                  type="text"
+                  class="form-control"
+                  minlength="4"
                   maxlength="24"
-                  required 
+                  required
                   #last_name='ngModel'
                   [(ngModel)]="user.last_name"
                 />
@@ -58,22 +58,22 @@
                 <p *ngIf="last_name.errors.minlength" class="errors" >Must be at least {{ last_name.errors.minlength.requiredLength }}  characters</p>
             </div>
         </div>
-        
+
         <div class="form-group row">
             <label for="email" class="col-sm-2 col-form-label">
               *Email Address:
             </label>
             <div class="col-sm-4 ">
-                <input 
-                  name="email" 
+                <input
+                  name="email"
                   placeholder="Enter email"
-                  type="email" 
-                  class="form-control" 
-                  aria-describedby="emailHelp" 
-                  minlength="8" 
+                  type="email"
+                  class="form-control"
+                  aria-describedby="emailHelp"
+                  minlength="8"
                   maxlength="24"
                   pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
-                  required 
+                  required
                   #email='ngModel'
                   [(ngModel)]="user.email"
                 />
@@ -93,13 +93,13 @@
               *Password:
             </label>
             <div class="col-sm-4 ">
-                <input 
-                name="password" 
+                <input
+                name="password"
                 placeholder="Choose a password"
-                type="password" 
-                class="form-control" 
-                aria-describedby="pwdHelp" 
-                minlength="8" 
+                type="password"
+                class="form-control"
+                aria-describedby="pwdHelp"
+                minlength="8"
                 maxlength="15"
                 required
                 pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
@@ -117,19 +117,19 @@
             </div>
 
         </div>
-    
+
         <div class="form-group row">
             <label for="password_confirm" class="col-sm-2 col-form-label">
               *Password Confirmation:
             </label>
             <div class="col-sm-4 ">
-                <input 
-                name="password_confirm" 
+                <input
+                name="password_confirm"
                 placeholder="Confirm your password"
-                type="password" 
+                type="password"
                 required
                 pattern="{{user.password}}"
-                class="form-control" 
+                class="form-control"
                 aria-describedby="pwdHelp2"
                 [(ngModel)]="user.password_confirm"
                 #password_confirm='ngModel'
@@ -143,20 +143,20 @@
                 <p *ngIf="password_confirm.errors.pattern" class="errors" >Must match password</p>
             </div>
         </div>
-  
+
         <div class="form-group row">
             <label for="streetaddr1" class="col-sm-2 col-form-label">
                 *Street Address:
             </label>
             <div class="col-sm-4 ">
-                <input 
-                name="streetaddr1" 
+                <input
+                name="streetaddr1"
                 placeholder="Enter street address"
-                type="text" 
+                type="text"
                 class="form-control"
-                minlength="4" 
+                minlength="4"
                 maxlength="24"
-                required 
+                required
                 [(ngModel)]="user.streetaddr1"
                 #streetaddr1='ngModel'
                 />
@@ -166,18 +166,18 @@
                 <p *ngIf="streetaddr1.errors.minlength" class="errors" >Must be at least {{ streetaddr1.errors.minlength.requiredLength }} characters</p>
             </div>
         </div>
-        
+
         <div class="form-group row">
             <label for="streetaddr2" class="col-sm-2 col-form-label">
                 Unit/Apartment #:
             </label>
             <div class="col-sm-4 ">
-                <input 
-                name="streetaddr2" 
+                <input
+                name="streetaddr2"
                 placeholder="Enter unit or apartment, if any"
-                type="text" 
-                class="form-control" 
-                minlength="2" 
+                type="text"
+                class="form-control"
+                minlength="2"
                 maxlength="24"
                 [(ngModel)]="user.streetaddr2"
                 #streetaddr2='ngModel'
@@ -193,14 +193,14 @@
                 *City:
             </label>
             <div class="col-sm-4 ">
-              <input 
-                name="city" 
+              <input
+                name="city"
                 placeholder="Enter city"
-                type="text" 
-                class="form-control" 
+                type="text"
+                class="form-control"
                 minlength="3"
                 maxlength="24"
-                required 
+                required
                 [(ngModel)]="user.city"
                 #city='ngModel'
                 />
@@ -210,19 +210,19 @@
                 <p *ngIf="city.errors.minlength" class="errors" >Must be at least {{ city.errors.minlength.requiredLength }} characters</p>
             </div>
         </div>
-         
+
         <div class="form-group row">
             <label for="city" class="col-sm-2 col-form-label">
                 *State:
             </label>
 
             <div class="col-sm-4 ">
-              <select 
-                name="state" 
-                type="text" 
-                class="form-control" 
-                required 
-                [(ngModel)]="user.state" 
+              <select
+                name="state"
+                type="text"
+                class="form-control"
+                required
+                [(ngModel)]="user.state"
                 #state='ngModel'>
                   <option value="AL">Alabama</option>
                   <option value="AK">Alaska</option>
@@ -281,12 +281,12 @@
                 <p *ngIf="state.errors.required" class="errors" >State is required</p>
             </div>
           </div>
-            
+
           <div class="form-group row">
             <label for="lucky" class="col-sm-2 col-form-label">
               *Feeling lucky?
             </label>
-          
+
             <div class="form-group">
               <div class="radio">
                 <label class="radio-block control-label">
@@ -317,17 +317,17 @@
       <div *ngIf="formData.invalid && formData.touched" >
         <p class="errors"> You can register after entering all required fields and fixing any errors above</p>
           <button disabled class="btn btn-primary">
-              Register          
+              Register
           </button>
       </div>
 
     </form>
-<!-- 
+<!--
     First Name: {{ first_name.errors | json }}  {{ first_name.valid | json }}<br>
     Last Name: {{ last_name.errors | json }}  {{ last_name.valid | json }}<br>
     Email:  {{ email.errors | json }}  {{ email.valid | json }} <br>
-    Password:  {{ password.errors | json }}  {{ password.valid | json }} <br>  
-    Password Confirm:  {{ password_confirm.errors | json }}  {{ password_confirm.valid | json }} <br>     
+    Password:  {{ password.errors | json }}  {{ password.valid | json }} <br>
+    Password Confirm:  {{ password_confirm.errors | json }}  {{ password_confirm.valid | json }} <br>
     Street Address 1:  {{ streetaddr1.errors | json }}  {{ streetaddr1.valid | json }}<br>
     Street Address 2:  {{ streetaddr2.errors | json }}  {{ streetaddr2.valid | json }}<br>
     City: {{ city.errors | json }}  {{ city.valid | json }}<br>
@@ -335,9 +335,9 @@
     Lucky: {{ lucky.errors | json }}  {{ lucky.valid | json }} -->
 
     <hr class='mt-5'>
-        
+
     <footer>
         <p>&copy; Kalkulations 2018</p>
     </footer>
-    
+
   </div>
