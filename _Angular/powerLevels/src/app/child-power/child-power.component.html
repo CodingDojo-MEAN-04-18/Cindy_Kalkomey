@@ -1,0 +1,20 @@
+
+<!-- child Power Component -->
+<div class="card mr-3">
+
+    <h5 class="card-header text-white bg-success">
+        {{ myPowercomp.title }}
+    </h5>
+
+    <div class="card-body">
+
+      <h5>
+        Power Level: {{ myPowercomp.currpower }}
+      </h5>
+
+      <h3>
+        {{ setMessage( myPowercomp.currpower ) }}
+      </h3>
+
+    </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="container">
+
+
+  <h2>
+      {{ title }}
+  </h2>
+
+  <!-- {{ formData.value }} -->
+
+  <div class="row mb-5">
+
+    <form (submit)="formData.valid && onSubmit($event, formData)" #formData='ngForm' class="col-md-9">
+
+      <div class="form-group row">
+        <label for="level" class="col-form-label col-md-3">
+          Initial Power Level:
+        </label>
+
+        <div class="col-md-3">
+          <select
+            name="level"
+            type="number"
+            class="form-control"
+            required
+            [(ngModel)]="power.level"
+            #powerlevel='ngModel'>
+            <option
+              *ngFor='let number of powerOptions(1, 100)'
+              value="{{ number }}">
+              {{ number }}
+            </option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary col-md-3">
+          Calculate Powers
+        </button>
+      </div>
+
+    </form>
+
+    <img class = "float-right" src="./assets/power_character.jpg" alt="Power Woman">
+
+  </div>
+
+
+  <div class = "row mb-5">
+
+      <app-child-power
+        *ngFor='let item of powercomps' [myPowercomp]='item' [myPower] = 'power' [isSubmitted] = 'formData.submitted'>
+      </app-child-power>
+
+  </div>
+
+
+<hr class='mt-5'>
+
+<footer>
+      <p>&copy; Kalkulations 2018</p>
+  </footer>
+
+</div>
+
