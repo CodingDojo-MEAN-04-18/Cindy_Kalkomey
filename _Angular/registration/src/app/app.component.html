@@ -128,7 +128,7 @@
                 placeholder="Confirm your password"
                 type="password"
                 required
-                pattern="{{user.password}}"
+                pattern = "{{ password.value }}"
                 class="form-control"
                 aria-describedby="pwdHelp2"
                 [(ngModel)]="user.password_confirm"
@@ -309,17 +309,10 @@
             </div>
           </div>
 
-      <div *ngIf="formData.valid || formData.pristine">
-        <button type="submit" class="btn btn-primary">
-          Register
-        </button>
-      </div>
-      <div *ngIf="formData.invalid && formData.touched" >
-        <p class="errors"> You can register after entering all required fields and fixing any errors above</p>
-          <button disabled class="btn btn-primary">
+          <p *ngIf = 'formData.invalid && formData.dirty' class = 'errors'> You can submit after entering all required fields and fixing any errors above</p>
+          <button [disabled] = 'formData.invalid' class="btn btn-primary">
               Register
           </button>
-      </div>
 
     </form>
 <!--
