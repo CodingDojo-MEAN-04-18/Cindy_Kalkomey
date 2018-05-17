@@ -128,7 +128,7 @@
                 placeholder="Confirm your password"
                 type="password"
                 required
-                pattern = "{{ password.value }}"
+                [pattern] = 'password.value'
                 class="form-control"
                 aria-describedby="pwdHelp2"
                 [(ngModel)]="user.password_confirm"
