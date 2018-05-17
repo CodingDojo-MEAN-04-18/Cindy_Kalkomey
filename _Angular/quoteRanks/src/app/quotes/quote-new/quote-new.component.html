@@ -1,0 +1,63 @@
+
+<h2>Add a Quote</h2>
+
+<form (submit)='onSubmit($event, formData)' #formData='ngForm'>
+
+  <div class="form-group row">
+
+    <div class = 'col-sm-6'>
+      <textarea
+        name ='content'
+        placeholder ="Enter quote"
+        type ='text'
+        class ='form-control'
+        rows ='3'
+        required
+        minlength ='4'
+        #content = 'ngModel'
+        [(ngModel)] ='quote.content'>
+      </textarea>
+
+    </div>
+
+    <div class = 'col-sm-6' *ngIf="content.errors && (content.touched || content.dirty)">
+      <p *ngIf = 'content.errors.required' class = 'errors' >A quote is required</p>
+      <p *ngIf = 'content.errors.minlength' class = 'errors' >Quote must be at least {{ content.errors.minlength.requiredLength }} characters</p>
+    </div>
+
+  </div>
+
+  <div class = 'form-group row' >
+
+    <label for = 'author'  class = 'col-sm-2 col-form-label text-right'>
+      Author
+    </label>
+
+    <div class = 'col-sm-4'>
+      <input
+        name ='author'
+        placeholder = "Enter author's name"
+        type = 'text'
+        class ='form-control'
+        required
+        minlength = '1'
+        #author = 'ngModel'
+        [(ngModel)]='quote.author'
+      />
+    </div>
+
+    <div class = 'col-sm-6' *ngIf = 'author.errors &&  author.dirty'>
+      <p *ngIf = 'author.errors.required' class = 'errors' >An author is required</p>
+      <p *ngIf = 'author.errors.minlength' class = 'errors' >Author must be at least {{ author.errors.minlength.requiredLength }} characters</p>
+    </div>
+
+  </div>
+
+  <p *ngIf = 'formData.invalid && formData.dirty' class = 'errors'> You can submit after entering all required fields and fixing any errors above</p>
+  <div class = 'row col-sm-6 justify-content-end'>
+      <button type = 'submit' class = 'btn btn-primary' [disabled] = 'formData.invalid'>
+          Submit
+      </button>
+  </div>
+
+</form>

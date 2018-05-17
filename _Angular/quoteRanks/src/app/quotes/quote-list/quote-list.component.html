@@ -1,0 +1,33 @@
+<app-quote-new (newQuote)='addQuote($event)'></app-quote-new>
+
+<h2>Quotes List</h2>
+
+<div class = 'row quoteitem' *ngFor='let quote of sortQuotes(quotes)'>
+  <div class = 'col-8'>
+    <blockquote class = 'blockquote'>
+        <p class = 'mb-1'> {{ quote.content }} </p>
+        <footer class="blockquote-footer"> {{ quote.author }}</footer>
+    </blockquote>
+  </div>
+
+  <div class = 'col'>
+    <p class = 'vote'>
+      {{ quote.votes }}
+    </p>
+  </div>
+
+  <div class = 'btn-group-vertical col'>
+      <button (click) = 'voteUpClick(quote)' class = 'btn btn-success'>
+        Vote Up
+      </button>
+      <button (click) = 'voteDownClick(quote)' class = 'btn btn-danger'>
+        Vote Down
+      </button>
+      <button (click) = 'deleteQuoteClick(quote)' class = 'btn btn-dark'>
+        Delete
+      </button>
+  </div>
+
+</div>
+
+
