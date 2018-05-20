@@ -13,8 +13,10 @@ export class QuoteNewComponent implements OnInit {
   quote: Quote = new Quote();
   // quotes: Quote[] = [];
 
-  // what is this doing (following Jason's book example)
-  @Output() newQuote = new EventEmitter<Quote>();
+  // create instance variable -- event newQuote --to emit Quote type data up to parent component (quote-list)
+  // doesn't need to be inside of the constructor
+  @Output()
+    newQuote = new EventEmitter<Quote>();
 
   constructor() {}
 
@@ -24,8 +26,12 @@ export class QuoteNewComponent implements OnInit {
     event.preventDefault();
     console.log('submitting form', formData);
     console.log('this.quote: ', this.quote);
+
+    // Note: the newQuote event will emit content -- this.quote
     this.newQuote.emit(this.quote);
+    // break reference of this.quote in order to reset quote to empty Quote object
     this.quote = new Quote();
+    // reset formData to be an empty form
     formData.reset();
   }
 }

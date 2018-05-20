@@ -1,3 +1,5 @@
+<!-- make this parent component (quote-list) listen for event newQuote from child (quote-new) and run method addQuote on parent component when event occurs -->
+<!-- Note: $event is actually the quote object in this case, which is why it is the only thing we pass to addQuote -->
 <app-quote-new (newQuote)='addQuote($event)'></app-quote-new>
 
 <h2>Quotes List</h2>
