@@ -1,0 +1,46 @@
+<div class="container">
+
+  <div class="row">
+
+    <div class="col-sm">
+      <!-- form goes here -->
+      <h2 class = "mb-5">GitHub Score</h2>
+      <form (submit)='onSubmit($event, formData)' #formData='ngForm'>
+          <input
+              name='username'
+              type="search"
+              class="form-control"
+              placeholder="Enter github username"
+              required
+              #username='ngModel'
+              [(ngModel)]="formData.username">
+
+        <button type = 'submit' class = 'btn btn-primary mt-2' [disabled] = 'formData.invalid'>
+            Submit
+        </button>
+      </form>
+    </div>
+
+    <div class="col-sm" *ngIf = 'userFound' >
+      <!-- score goes here if user is found-->
+
+        <h2 class="mt-5 p-2 text-center" >Your Score: {{ score }}</h2>
+        <hr>
+        <h3 class='red text-center' *ngIf='score < 20'>Needs Work!</h3>
+        <h3 class = 'orange text-center' *ngIf='score >= 20 && score < 50'>A decent start!</h3>
+        <h3 class = 'black text-center' *ngIf='score >= 50 && score < 100'>Doing good!</h3>
+        <h3 class = 'green text-center' *ngIf='score >= 100 && score < 200'>Great Job!</h3>
+        <h3 class = 'blue text-center' *ngIf='score >= 200'>Github Elite!</h3>
+
+    </div>
+
+    <div class="col-sm"  *ngIf = '!userFound' >
+        <!-- error message if user is not found-->
+
+          <p class="error mt-5 p-2" >{{ message }}</p>
+
+    </div>
+
+  </div>
+
+</div>
