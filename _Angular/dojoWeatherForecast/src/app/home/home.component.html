@@ -1,0 +1,42 @@
+<div class="container">
+
+  <div class="jumbotron banner">
+      <h1 class="display-4 text-white">Dojo Weather Forecast</h1>
+  </div>
+
+  <!-- city navigation here -->
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <a class="navbar-brand" href="">Dojo Cities</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+
+        <li class="nav-item ml-5" *ngFor='let place of places'  >
+
+          <a class="text-white" [routerLink]="['city', place.id]">{{ place.name }}</a>
+        </li>
+
+      </ul>
+
+    </div>
+
+  </nav>
+
+
+
+  <router-outlet></router-outlet>
+
+  <hr class='mt-5'>
+
+  <footer>
+      <p>&copy; Kalkulations 2018</p>
+  </footer>
+
+</div>
+
