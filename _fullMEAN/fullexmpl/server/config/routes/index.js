@@ -1,0 +1,8 @@
+const bookRouter = require('./book.routes');
+//const authorRouter = require('./author.routes');
+
+const router = require('express').Router();
+
+module.exports = router
+  // .use('/authors', authorRouter)
+  .use('/books', bookRouter);
