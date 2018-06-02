@@ -1,0 +1,17 @@
+<div class="card mt-5">
+
+  <h3 class="card-header primary-color white-text">
+      Products List
+  </h3>
+
+  <div class="card-body">
+
+    <!-- app-item is the selector attribute from the item.component.ts file -->
+    <!-- allProducts array must be defined in list.component.ts -->
+    <div class = "card-deck">
+      <app-item *ngFor="let p of allProducts"   [product] = "p"></app-item>
+    </div>
+
+  </div>
+
+</div>

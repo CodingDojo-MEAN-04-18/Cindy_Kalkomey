@@ -1,0 +1,41 @@
+<!-- <div class="card card-block mr-3 mb-3">
+
+    <h5 class="card-title">{{product.title}}</h5>
+
+    <img src="../../../assets/images/{{product.image}}" alt="{{product.image}}">
+
+  <p class="text-center">Price: ${{product.price}}</p>
+
+</div>
+ -->
+
+
+<!-- Card -->
+<!-- using ngIf seems like a hack way to get item component to not display after item has been deleted from db, but it works-->
+<div class="card mb-3" *ngIf = "product.active">
+
+    <!-- Card image -->
+
+    <img class="card-img-top mx-auto d-block" src="../../../assets/images/{{product.image}}" alt="{{product.image}}">
+
+    <!-- Card content -->
+    <div class="card-body">
+
+      <!-- Title -->
+      <h5 class="card-title text-center"><a>{{product.title}}</a></h5>
+      <!-- Text -->
+      <p class="card-text text-center">Price: {{product.price | currency}}</p>
+
+
+      <!-- Buttons -->
+      <div class = "row justify-content-center" >
+        <button   (click) = 'editItem(product._id)' class = 'btn btn-success mr-1'>
+            Edit
+        </button>
+        <button (click) = 'deleteItem(product._id)' class = 'btn btn-danger'>
+            Delete
+        </button>
+      </div>
+
+  </div>
+  <!-- Card -->
