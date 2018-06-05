@@ -1,0 +1,263 @@
+Full MEAN Project Steps
+
+1. Create an Angular project
+	ng new <application name> --routing
+	then navigate into your new <application name> and execute as needed:
+           ng generate component my-component - Creates a component
+           ng generate service my-service - Creates a service
+           ng generate class my-class - Creates a class
+         then, while at app level, run 
+            npm install 
+         to install everything that is in package.json, and then run
+            ng serve
+         to test out the Angular portion of the app before integrating in Express and MongoDB)
+
+2. Create an Express server file within <application name> dir (at <application name> root level)
+	cd <application name>
+	touch server.js
+
+3. Install packages you’ll need. Jason used yarn in his example lecture video:
+	yarn add express mongoose body-parser    
+       	but using npm it is:
+            npm install express mongoose body-parser  
+  
+4. edit package.json and add this line (above "dependencies": section)
+        "main": "server.js",    (don’t forget the comma)
+
+5. Edit and build out the server.js file, for example:
+
+	const parser = require('body-parser');
+	const express = require('express');
+	const path = require('path');
+
+	const port = process.env.PORT || 8000;
+
+	const app = express();
+
+	app.use(parser.urlencoded({ extended: true }));
+	app.use(parser.json() );
+
+	require('./server/config/database');
+
+	app.use(require('./server/config/routes')); 
+
+	app.listen(port, () => console.log(`listening on port ${ port }`));
+
+6. Create modularization for server-side stuff by:
+  *  create server directory (at <application name> root level) and
+  *  within it create directories config, models, controllers
+
+7. Build out model info first so you know the shape of your backend data. So in models dir... create each <dataname>.js file.  For example, book.js (and note it is singular)
+
+	const mongoose = require('mongoose');
+	const { Schema } = mongoose;
+
+	const bookSchema = new Schema({
+ 		title: {
+  		   type: String,
+    		   required: true,
+  		   trim: true,
+   		   minlength: 3,
+  		},
+  		year: Number,
+  		pages: Number,
+  		genre: String,
+  		publisher: String,
+  		author: {
+    		   type: Schema.Types.ObjectId,
+    		   ref: 'Author'
+  		}
+	},
+	{
+  		timestamps: true
+	}
+	);
+	// makes collection ==> books
+	module.exports = mongoose.model('Book', bookSchema);
+
+8. Create a database.js file within the server/config directory
+
+	const mongoose = require('mongoose');
+	const path = require('path');
+	const fs = require('fs');
+
+	const reg = new RegExp('\\.js$', 'i');
+	// const modelsPath = path.join(__dirname, '../models');
+	const modelsPath = path.resolve('server', 'models');
+
+	// connect to database (assuming it's named books here)
+	mongoose.connect('mongodb://localhost/books');
+	mongoose.connection.on('connected', () => console.log('Connected to MongoDB'));
+
+	// if running Mongoose version < 5.0, you want to chg to use global Promise
+	mongoose.Promise = global.Promise;
+
+	// get path for each model js file in models dir
+	// if a production db, would need to provide authentication params as part of connect
+	fs.readdirSync(modelsPath).forEach(file => {
+  		if (reg.test(file)) {
+    		require(path.join(modelsPath, file));
+  	}
+	});
+
+9a. Create a <resourcename>.js file in controllers for each resource. Assuming book.js was a model file, typically you would have a controllers/books.js file  (note books is plural by convention here):
+	const Book = require('mongoose').model('Book');
+
+	module.exports = {
+  		index(request, response) {
+ 	  		Book.find({})
+			.then(books => response.json(books))
+			.catch(console.log);
+  		},
+
+  		show(request, response) {
+	  		Book.findById(request.params.bookID)
+			.then(book  => response.json(book))
+			.catch(console.log);
+ 	 	},
+
+  			update(request, response) {
+	  	Book.findByIdAndUpdate(request.params.bookID,request.body, {new: true} )
+			.then(book => response.json(book))
+			.catch(console.log);
+  		},
+
+ 	 	create(request, response) {
+	  		Book.create(request.body)
+			.then(book => response.json(book))
+			.catch(error => {
+		  	 const errors = Object.keys(error.errors).map(
+		   	  key => error.errors[key].message
+ 		  	 );
+
+		  	response.json(errors);
+			});
+  		},
+
+  		destroy(request, response) {
+	  		Book.findByIdAndRemove(request.params.bookID)
+			.then(book => response.json(book))
+			.catch(console.log);
+   		}
+	};
+
+9b. Create an index.js file within the controllers directory (step 9a) to call all the *.js files created in that directory. index.js is something like this:
+
+	// const authorController = require('./authors');
+	const bookController = require('./books');
+
+	module.exports = {
+  	// authorController,
+  	bookController,
+	}
+
+10. Create a routes directory within the server/config directory; and within it, create a routes file for each resource. For the books example, create a book.routes.js file. 
+
+	const bookController = require('../../controllers/books');
+
+	const router = require('express').Router();
+
+	router
+ 	 .get('/', bookController.index)
+ 	 .post('/', bookController.create)
+ 	 .get('/:bookID', bookController.show)
+ 	 .put('/:bookID', bookController.update)
+ 	 .delete('/:bookID', bookController.destroy);
+
+	module.exports = router;
+
+11. Create an index.js file within the routes directory (step 10) to call all the *.routes.js files created in that directory. index.js is something like this:
+ 	const bookRouter = require('./book.routes');
+	//const authorRouter = require('./author.routes');
+
+	const router = require('express').Router();
+
+	module.exports = router
+  	// .use('/authors', authorRouter)
+  	.use('/books', bookRouter);
+
+
+12. To test that all is working so far, fire up mongodb and start node with nodemon
+     > sudo mongod  (do this in a separate Terminal window, and keep access to that window in order to be able to easily terminate mongoldb)
+     then in another terminal window:
+     navigate to <application-name> dir
+     > nodemon
+
+   if all is well at this point, console should show 
+	listening on port 8000
+	Connected to MongoDB
+
+13. Now create the dist dir by executing 'ng build --watch' in terminal. You should be in the <application name> directory when you issue this command. Note the Watch will cause dist to be updated each time you change the Angular part of the app.
+
+14. Now bring in Angular to express server.js by adding this line. Recall dist is the directory that CLI command 'ng build' will create. Add this line above the require ...database line.
+        Here's what Jason said in his lecture but he also had file angular-CLI.json
+ 	app.use(express.static(path.join(__dirname, 'dist')));
+
+	I had to do this to get Angular to be called and I have file angular.json
+ 	app.use(express.static(path.join(__dirname, 'dist/<application name>')));
+
+15. Once we hook up our Angular app to Express, we may have some routes collision (i.e., we intend to call an Angular route but it thinks it is supposed to use server route). Here's how to fix this: 
+	i) create a catch-all.route.js file in the routes directory (note: as above, I had to add <application name> to dist path to get it to work:
+		const router = require('express').Router();
+		const path = require('path');
+
+		router.all('*', function (request, response) {
+  			response.sendFile(path.resolve('dist/<application name>/index.html'));
+		});
+
+		module.exports = router;
+	ii) add this line to server.js immediately after app.use(require('./server/config/routes'));
+		app.use(require('./server/config/routes/catch-all.route'));
+	iii) but then change that first routes line to be:
+		app.use('/api', require('./server/config/routes'));
+
+16. We need to integrate the service in Angular part of the app, to use the content we're going to serve via our API (I assume an API for our mongoDB database). Don't forget that the service needs to be imported and added as a provider within /src/app/app.module.ts
+
+Assuming the Angular app has a services directory and, say, a book.service.ts file within it; the book.service.ts might be modified to be something like this:
+
+	import { Injectable } from '@angular/core';
+	import { HttpClient } from '@angular/http';
+	import { Observable } from 'rxjs/Observable';
+
+	import { Book } from '../book';
+
+
+	@Injectable()
+	export class DataService {
+  		private base = '/api/books'
+
+  		constructor( private _http: HttpClient ) { }
+
+   		getBooks(): Observable<Book> {
+      			return this.http.get<Book[]>(this.base);
+   		}
+
+   		createBook(book: Book): Observable<Book> {
+    			  return this.http.post<Book>(this.base, book);
+   		}
+
+   		deleteBook(id: number): Observable<Book> {
+    			  return this.http.delete<Book>(`${this.base}/${id}`);
+   		}
+
+   		getBook(id: number): Observable<Book> {
+      			return this.http.get<Book>(`${this.base}/${id}`);
+  		 }
+
+	}
+
+17. Then if still running nodemon, you'll view application at localhost:8000 (per server.js file)
+ 	
+18. A tool you may want to install to help keep up with all the changing parts of the MEAN app is foreman. To install using yarn:
+   > yarn add foreman -D     (-D is for development)
+   I used npm to install
+   > npm install foreman -D
+
+   Then in the package.json file, add foreman to the end of the scripts object:
+        "e2e": "ng e2e",
+    	"foreman": "./node_modules/.bin/nf"
+   
+    Then you're supposed to be able to 
+       > npm run foreman start
+
+

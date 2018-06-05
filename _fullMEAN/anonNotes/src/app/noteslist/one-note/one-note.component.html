@@ -1,0 +1,14 @@
+
+<!-- Note content  and date-->
+
+<blockquote class = 'blockquote'>
+  <!-- probably bad practice, but using blockquote footer formatting to get header formatting I want on note -->
+  <!-- using date: 'medium' pipe to get the required formatting of createAt date field-->
+    <footer class="blockquote-footer mb-1 text-right"> Noted on: {{ note.createdAt | date: 'medium' }} </footer>
+    <p class = 'mb-1'> {{ note.content }} </p>
+</blockquote>
+<hr>
+
+<!-- end Note -->
+
+
