@@ -1,0 +1,42 @@
+<h2 class = "text-center">Player Status - Game {{ game_num }}</h2>
+
+<table class="mt-2 table table-striped table-bordered">
+
+    <thead class="thead">
+      <tr>
+        <th scope="col">Player Name</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor='let p of allPlayers'>
+
+        <td>
+          {{ p.player_name }}
+        </td>
+
+        <td *ngIf = 'game_num === "1"' class = "mx-auto">
+          <button (click) = 'changeStatus(p, game_num, "Playing")' class = 'btn btn-outline-dark ml-5 mr-5'
+          [ngClass]="{ 'playing': ( p.game1_status === 'Playing') }">
+            Playing
+          </button>
+
+          <button (click) = 'changeStatus(p, game_num, "Not Playing")' class = 'btn btn-outline-dark ml-5 mr-5'
+          [ngClass]="{ 'notplaying': (p.game1_status === 'Not Playing') }">
+            Not Playing
+          </button>
+
+          <button (click) = 'changeStatus(p, game_num, "Undecided")'
+          [ngClass]="{ 'undecided': (p.game1_status === 'Undecided') }" class = 'btn btn-outline-dark ml-5 mr-5'>
+              Undecided
+          </button>
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+

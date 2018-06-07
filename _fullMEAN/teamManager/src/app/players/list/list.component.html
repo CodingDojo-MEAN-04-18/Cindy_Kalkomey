@@ -1,4 +1,25 @@
-<p>
-  list works!
-</p>
+
+<table class="mt-2 table table-striped table-bordered">
+
+  <thead class="thead">
+    <tr>
+      <th scope="col">Player Name</th>
+      <th scope="col">Preferred Position</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor='let p of allPlayers'>
+      <td>{{ p.player_name }}</td>
+      <td>{{ p.pref_position }}</td>
+      <td>
+        <button (click) = 'deleteP(p._id, p.player_name)' class = 'btn btn-danger'>
+          Delete Player
+        </button>
+      </td>
+    </tr>
+  </tbody>
+
+</table>
 

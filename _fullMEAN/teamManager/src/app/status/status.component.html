@@ -1,3 +1,37 @@
-<p>
-  status works!
-</p>
+<div>
+
+  <!-- games navigation bar here -->
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mt-1">
+
+    <a class="navbar-brand" href=""></a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mx-auto">
+
+        <li class="nav-item ml-5 mr-5">
+          <!-- note that since we are in game parent path, we only list the child path in the routerlink-->
+          <a class="text-success" [routerLink]="['game','1']">Game 1</a>
+        </li>
+        <li class="nav-item ml-5 mr-5">
+          <a class="text-success" [routerLink]="['game','2']">Game 2</a>
+        </li>
+        <li class="nav-item ml-5 mr-5">
+          <a class="text-success" [routerLink]="['game','3']">Game 3</a>
+        </li>
+      </ul>
+
+    </div>
+
+  </nav>
+
+  <!-- content body here, depending on game nav option chosen -->
+
+    <router-outlet></router-outlet>
+
+  </div>
+

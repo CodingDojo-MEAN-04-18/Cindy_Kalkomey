@@ -1,6 +1,8 @@
+<div>
+
 <!-- players navigation bar here -->
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light mt-1">
 
   <a class="navbar-brand" href=""></a>
 
@@ -11,14 +13,14 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
 
-      <li class="nav-item ml-5">
+      <li class="nav-item ml-1">
         <!-- note that since we are in list and addplayer parent path, we only list thc child path in the routerlinl-->
 
-          <a class="text-success" [routerLink]="['list']">List</a>
-        </li>
-        <li class="nav-item ml-5">
-          <a  class="text-success" [routerLink]="['addplayer']">Add Player</a>
-        </li>
+        <a class="text-success" [routerLink]="['list']">List</a>
+      </li>
+      <li class="nav-item ml-5">
+        <a  class="text-success" [routerLink]="['addplayer']">Add Player</a>
+      </li>
 
     </ul>
 
@@ -28,4 +30,7 @@
 
 <!-- content body here, depending on player nav option chosen -->
 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+
+</div>
+

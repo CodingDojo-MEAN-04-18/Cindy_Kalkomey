@@ -1,18 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-
-import { ActivatedRoute } from '@angular/router';
-import { TeamdataService } from '../teamdata.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-players',
   templateUrl: './players.component.html',
   styleUrls: ['./players.component.css']
 })
-export class PlayersComponent implements OnInit {
-
-  constructor( private _route: ActivatedRoute, private _teamService: TeamdataService) { }
-
-  ngOnInit() {
-  }
-
-}
+export class PlayersComponent {}

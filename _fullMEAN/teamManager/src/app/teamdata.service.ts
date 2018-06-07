@@ -34,7 +34,7 @@ export class TeamdataService {
   }
 
   updatePlayer(_id: string, player: ClientPlayer) {
-    console.log('SERVICE in TeamdataService updatePlayer to change player _id: ', _id, 'to be product:', player);
+    console.log('SERVICE in TeamdataService updatePlayer to change player _id: ', _id, 'to be player:', player);
 
     console.log('SERVICE in TeamdataService updatePlayer is calling .put route $(this.base)/$(_id): ', `${this.base}/${_id}` );
     return this._http.put( `${this.base}/${_id}`,  player);

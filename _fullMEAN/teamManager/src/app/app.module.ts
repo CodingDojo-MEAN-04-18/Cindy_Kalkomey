@@ -12,6 +12,7 @@ import { PlayersComponent } from './players/players.component';
 import { StatusComponent } from './status/status.component';
 import { ListComponent } from './players/list/list.component';
 import { AddplayerComponent } from './players/addplayer/addplayer.component';
+import { GameComponent } from './status/game/game.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AddplayerComponent } from './players/addplayer/addplayer.component';
     PlayersComponent,
     StatusComponent,
     ListComponent,
-    AddplayerComponent
+    AddplayerComponent,
+    GameComponent
   ],
   imports: [
     FormsModule,
