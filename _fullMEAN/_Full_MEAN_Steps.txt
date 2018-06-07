@@ -269,6 +269,6 @@ Assuming the Angular app has a services directory and, say, a book.service.ts fi
      > use <dbname>     to use a specific db
      > show collections     to view collections within the db
      > db.<collection_name>.drop()  to destroy a collection
-     > db.<collection_name>.find()    to see all documents in a collection
+     > db.<collection_name>.find()   to see all documents in a collection
 
 		
