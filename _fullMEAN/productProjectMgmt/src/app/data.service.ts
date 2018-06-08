@@ -17,7 +17,7 @@ export class DataService {
 
 // this must agree with what is included in server.js for routes -- // products here is the server-side page routing for all pages
 // beginning with /products
-  private base = 'http://localhost:8000/api/products';
+  private base = '/api/products';
 
   constructor( private _http: HttpClient ) { }
 
