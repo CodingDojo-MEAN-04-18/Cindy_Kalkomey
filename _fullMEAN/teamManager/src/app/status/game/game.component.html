@@ -34,6 +34,42 @@
 
         </td>
 
+        <td *ngIf = 'game_num === "2"' class = "mx-auto">
+          <button (click) = 'changeStatus(p, game_num, "Playing")' class = 'btn btn-outline-dark ml-5 mr-5'
+          [ngClass]="{ 'playing': ( p.game2_status === 'Playing') }">
+            Playing
+          </button>
+
+          <button (click) = 'changeStatus(p, game_num, "Not Playing")' class = 'btn btn-outline-dark ml-5 mr-5'
+          [ngClass]="{ 'notplaying': (p.game2_status === 'Not Playing') }">
+            Not Playing
+          </button>
+
+          <button (click) = 'changeStatus(p, game_num, "Undecided")'
+          [ngClass]="{ 'undecided': (p.game2_status === 'Undecided') }" class = 'btn btn-outline-dark ml-5 mr-5'>
+              Undecided
+          </button>
+
+        </td>
+
+        <td *ngIf = 'game_num === "3"' class = "mx-auto">
+          <button (click) = 'changeStatus(p, game_num, "Playing")' class = 'btn btn-outline-dark ml-5 mr-5'
+          [ngClass]="{ 'playing': ( p.game3_status === 'Playing') }">
+            Playing
+          </button>
+
+          <button (click) = 'changeStatus(p, game_num, "Not Playing")' class = 'btn btn-outline-dark ml-5 mr-5'
+          [ngClass]="{ 'notplaying': (p.game3_status === 'Not Playing') }">
+            Not Playing
+          </button>
+
+          <button (click) = 'changeStatus(p, game_num, "Undecided")'
+          [ngClass]="{ 'undecided': (p.game3_status === 'Undecided') }" class = 'btn btn-outline-dark ml-5 mr-5'>
+              Undecided
+          </button>
+
+        </td>
+
       </tr>
 
     </tbody>

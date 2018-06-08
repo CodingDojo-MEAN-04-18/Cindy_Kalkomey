@@ -17,14 +17,15 @@ export class GameComponent implements OnInit {
 
   constructor( private _teamservice: TeamdataService, private _route: ActivatedRoute ) {
 
-  }
-
-  ngOnInit() {
-
     // call on ActivatedRoute to get game number from the current route /status/game/:id
     this._route.paramMap.subscribe( params => {
       this.game_num = params.get('id');
+      console.log('in game.component w this.game_num =', this.game_num);
     });
+
+  }
+
+  ngOnInit() {
 
     this._teamservice.getPlayers()
     .subscribe(

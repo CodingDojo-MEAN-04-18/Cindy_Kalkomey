@@ -19,7 +19,7 @@ export class TeamdataService {
   // players = new BehaviorSubject([]);
 
 // this must agree with what is included in server.js for routes -- server-side page routing
-  private base = 'http://localhost:8000/api/players';
+  private base = '/api/players';
 
   constructor( private _http: HttpClient ) { }
 

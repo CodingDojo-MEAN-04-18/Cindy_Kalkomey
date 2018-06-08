@@ -1,0 +1,226 @@
+variables used in deploy process:
+
+{{project_name}}  what you named your project (its root dirname)
+MEAN_AWS_deploy
+
+{{mypem}}  - what you named your pen file:  
+ckalk_aws.pem
+
+{{yourAWS.ip}}  - IP address your instance is assigned by AWS: 
+ubuntu@ec2-18-219-101-171.us-east-2.compute.amazonaws.com
+
+{{your project file path on github}} 
+https://github.com/ckalk/MEAN_AWS_deploy
+
+-------------------------------------------------------------------
+AWS Deployment of a MEAN project
+
+Assuming a working MEAN application pushed to Github at {{your project file path on github}} 
+
+Part 2: Set up AWS
+
+* Enter AWS, go to EC2, and and click "launch instance" button.
+* Select Ubuntu 16.04 LTS
+* Select t2.micro and click "Review and Lunch" button at bottom of page
+
+* Click "edit Security Groups" link on right side of page
+* Set security settings:
+        ssh 0.0.0.0, (Anywhere or myIP)
+        http 0.0.0.0 (Anywhere)
+        https 0.0.0.0 (Anywhere, or don't set it)
+* Click on "Review and Launch" button at bottom of page
+* Then click "Launch" button at bottom of next page, and new modal opens up
+   (Note: should already have this from python/django deploy)
+* Select existing key pair and click "Launch"
+	* Or... if you don't have an existing key pair -- Download a .pem key from AWS
+	* Move the .pem file to an appropriate folder on your system
+	* Change user permission on your .pem  file using the command: 
+	  > chmod 400 {{mypem}}.pem  	
+
+
+Part 3: Enter cloud server
+
+* Navigate to the folder where your .pem file is stored.
+
+* Then in the AWS app, go to "View instances". There you can 
+   give your instance a name so you know what it's for. 
+   Then while that instance is selected, click the "Connect" button. 
+   A modal will come up that gives you the ssh command (filled out) 
+   that you need in the next step.
+
+* In your terminal window, enter this ssh command (from dir where pem key is stored)
+     	> ssh -i {{mypem}}.pem ubuntu@{{yourAWS.ip}}  
+	for me this was: 
+	ssh -i "ckalk_aws.pem" ubuntu@ec2-18-219-101-171.us-east-2.compute.amazonaws.com  
+
+
+Jason deviates from learning platform instructions and says to install mongo now.
+
+* In the ubuntu terminal: Set up up mongodb. Follow instructions and copy 
+   commands from https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/ 
+
+	> sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
+
+
+* Setup mongodb in a source list. Pick the version of Ubuntu you are currently using from the below snippets. We're using Version 16.04.
+
+	> echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list
+	(Note: Important:That is all one line!)
+
+* In the ubuntu terminal: Reupdate to integrate mongo
+	> sudo apt-get update
+
+
+* In the ubuntu terminal: Do these commands to establish some basic 
+  dependencies for deployment and the Linux server.
+
+	> sudo apt-get install -y build-essential openssl libssl-dev pkg-config nodejs nodejs-legacy
+
+
+Since MongoDB is already set up, 
+* In the ubuntu terminal: install mongo
+	> sudo apt-get install -y mongodb-org
+
+*  In the ubuntu terminal: Install NGINX, git, and npm (I haven't used yarn so sticking with npm):
+	> sudo apt-get install nginx git
+
+	> sudo apt-get install npm
+	> sudo npm cache clean -f
+		(The cache clean -f, forcibly cleans the cache.  
+		This will give an interesting comment:))
+
+* In the ubuntu terminal: Do these commands to install the node package manager-- n --and updated node.
+	> sudo npm install -g n
+	> sudo n stable        (or whichever node version you want e.g. 5.9.0)
+
+	> node -v    (should give you the stable version of node -  the version that you just installed)
+
+
+More instruction from Jason ... you need your local server and deployed server to be running close to same version of node, so do this next step...
+
+* Stable version of node was still 4.2.6 so now do this
+	> source ~/.bashrc
+        > node -v
+and you should see a later version (I now showed v10.4.0)
+    
+
+* In the ubuntu terminal: Make your file folder and cd to it:
+	(Check first if you /var/www already exists: if yes just go to it. 
+	> sudo mkdir /var/www
+	> cd /var/www
+
+* In the ubuntu terminal: Clone your project:
+	> sudo git clone {{your project file path on github}}
+        (Note: need a repo with your single project in it. 
+	I have created AWS_MEAN dir and repo for just this purpose. 
+	Assuming I can delete and swap out files to replace with different project.) Then do a 
+ 	> sudo git pull
+
+
+Jason deviates from learning platform a bit here ...
+
+* In the ubuntu terminal: Go to nginx’s sites-available directory :
+	> cd /etc/nginx/sites-available
+        > sudo rm default 
+        
+
+* In the ubuntu terminal: Enter vim:
+	> sudo vim {{project_name}}
+
+	Note: vim is a terminal-based text editor. Key commands are: 
+	i  -- insert,  allows us to type, 
+	esc  -- which turns off insert; and then after esc 
+	:wq  -- which says write and quit.
+
+* In the ubuntu terminal: Paste and modify the following code into vim after hitting i:
+
+server {
+    listen 80;
+    location / {
+        proxy_pass http://{{PRIVATE-IP}}:{{NODE-PROJECT-PORT}};
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
+	But edit above to replace {{PRIVATE-IP}} with the 
+	private IP address given for your AWS instance. mine is 172.31.44.45
+	And {{NODE-PROJECT-PORT}} needs to be whatever port was specified
+	 in server.js: 8000
+	This results for me in the line being:
+	proxy_pass http://172.31.44.45:8000;
+
+	(Note: This code says: have the reverse proxy server (nginx) listen 
+	at port 80. When going to root /, listen for http requests as though 
+	you were actually http://<your private ip> and the port your server 
+	is listening e.g @8000 or @6789 etc.)
+	Learn more from nginx: 
+	http://nginx.org/en/docs/http/ngx_http_proxy_module.html
+
+
+* In the ubuntu terminal: Remove the defaults from /etc/nginx/sites-enabled/
+	> cd /etc/nginx/sites-enabled/
+	> sudo rm default
+    Create a symbolic link
+	> sudo ln -s /etc/nginx/sites-available/{{project_name}} /etc/nginx/sites-enabled/{{project_name}}
+
+
+Part 5: Project Dependencies and PM2
+
+* In the ubuntu terminal: Install pm2 globally (https://www.npmjs.com/package/pm2.5) (https://www.npmjs.com/package/pm2). This is a production process manager that allows us to run node processes in the background.
+	> sudo npm i -g pm2
+
+
+* In the ubuntu terminal: You can try some stuff with pm2:
+	> cd /var/www/{{project_name}}
+	> pm2 start server.js
+        > pm2 status      (expect to see an error)
+	> pm2 stop 0
+
+  	(Note: Probably not quite working yet but close)
+
+
+* In the ubuntu terminal: Start mongo (probably already started)
+	> sudo service mongod start
+	> sudo service mongod status  (enter q to get back to prompt after seeing status)
+
+
+* In the ubuntu terminal: Restart nginx configs and pm2 project:
+	> sudo service nginx reload && sudo service nginx restart
+	> pm2 restart 0
+	> pm2 status     (and check that no errors and online)
+
+
+* In the ubuntu terminal: You might have some components that still need to be installed: 
+  (get your dependencies from npm--assuming your git project has a package.json)
+	> sudo npm install
+
+* In the ubuntu terminal:Test that you can run your server. 
+	(It will most likely fail, b/c no dist folder). 
+	Navigate to dir where server.js file exists, and execute:
+	> node server.js 
+
+* In the ubuntu terminal: Install the Angular CLI, 
+	> sudo npm i -g @angular/cli
+
+	get all your necessary node modules, by doing this:
+	> sudo npm install
+
+	Build dist directory for your Angular project (you should be at /var/www/{{project_name}} now)
+	> sudo ng build 
+
+
+* In the ubuntu terminal: One more time, restart your pm2 project and make sure the nginx configs are working:
+
+	> pm2 stop 0
+	> pm2 restart 0
+	> sudo service nginx reload && sudo service nginx restart
+
+* At this point, the nginx commands should have shown 2 OKs and you should be off and running. 
+
+* Go to the AWS public IP {{yourPublicAWS.ip}} and see your site live!
+  Mine is 18.219.101.171
+
