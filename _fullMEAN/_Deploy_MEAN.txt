@@ -1,16 +1,15 @@
-variables used in deploy process:
+Variables used in deploy process:
 
 {{project_name}}  what you named your project (its root dirname)
-MEAN_AWS_deploy
+
 
 {{mypem}}  - what you named your pen file:  
-ckalk_aws.pem
+*.pem
 
 {{yourAWS.ip}}  - IP address your instance is assigned by AWS: 
-ubuntu@ec2-18-219-101-171.us-east-2.compute.amazonaws.com
 
 {{your project file path on github}} 
-https://github.com/ckalk/MEAN_AWS_deploy
+
 
 -------------------------------------------------------------------
 AWS Deployment of a MEAN project
@@ -52,7 +51,6 @@ Part 3: Enter cloud server
      	> ssh -i {{mypem}}.pem ubuntu@{{yourAWS.ip}}  
 	for me this was: 
 	ssh -i "ckalk_aws.pem" ubuntu@ec2-18-219-101-171.us-east-2.compute.amazonaws.com  
-
 
 Jason deviates from learning platform instructions and says to install mongo now.
 
@@ -121,7 +119,7 @@ Jason deviates from learning platform a bit here ...
 
 * In the ubuntu terminal: Go to nginx’s sites-available directory :
 	> cd /etc/nginx/sites-available
-        > sudo rm default 
+    > sudo rm default 
         
 
 * In the ubuntu terminal: Enter vim:
@@ -177,7 +175,7 @@ Part 5: Project Dependencies and PM2
 * In the ubuntu terminal: You can try some stuff with pm2:
 	> cd /var/www/{{project_name}}
 	> pm2 start server.js
-        > pm2 status      (expect to see an error)
+    > pm2 status      (expect to see an error)
 	> pm2 stop 0
 
   	(Note: Probably not quite working yet but close)
@@ -193,10 +191,6 @@ Part 5: Project Dependencies and PM2
 	> pm2 restart 0
 	> pm2 status     (and check that no errors and online)
 
-
-* In the ubuntu terminal: You might have some components that still need to be installed: 
-  (get your dependencies from npm--assuming your git project has a package.json)
-	> sudo npm install
 
 * In the ubuntu terminal:Test that you can run your server. 
 	(It will most likely fail, b/c no dist folder). 
